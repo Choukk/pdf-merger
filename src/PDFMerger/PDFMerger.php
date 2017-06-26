@@ -80,6 +80,7 @@ class PDFMerger
                 for ($i=1; $i<=$count; $i++) {
                     $template   = $fpdi->importPage($i);
                     $size       = $fpdi->getTemplateSize($template);
+                    $orientation = ($size['h'] > $size['w']) ? 'P' : 'L';
 
                     $fpdi->AddPage($orientation, array($size['w'], $size['h']));
                     $fpdi->useTemplate($template);
@@ -90,6 +91,7 @@ class PDFMerger
                         throw new Exception("Could not load page '$page' in PDF '$filename'. Check that the page exists.");
                     }
                     $size = $fpdi->getTemplateSize($template);
+                    $orientation = ($size['h'] > $size['w']) ? 'P' : 'L';
 
                     $fpdi->AddPage($orientation, array($size['w'], $size['h']));
                     $fpdi->useTemplate($template);
